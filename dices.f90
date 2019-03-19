@@ -50,9 +50,9 @@ end program estatistica_dos_dados
      ! Esta funcao joga os dados até ver se saiu ou nao com vida
 
 integer function dices()
-      life_score = 0 
+      life_score = 0
       death_score = 0
-	    do while (life_score .lt. 2 .OR. death_score .lt. 2)
+	    do while (life_score  < 3 .OR. death_score < 3)
 	        ! Jogando o dado
 	      random = rkiss05()
 	      random =  1 + floor((20)*random)         ! Desta forma consigo numeros aleatorios de 1 a 20
