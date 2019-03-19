@@ -7,8 +7,7 @@
     								Death Saving Rules
 
     Vc possui dois scores, o life_score e o death_score.
-    É jogado o d20, se cair acima de 10 vc ganha um life_score, se cair abaixo vc ganha um
-   death_score
+    É jogado o d20, se cair acima de 10 vc ganha um life_score, se cair abaixo vc ganha um  death_score
 
     O que completar primeiro ganha, se vc consegue 3 life_score vc volta a vida, se vc consegue
     3 death_score vc morre para sempre.
