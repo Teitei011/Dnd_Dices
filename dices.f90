@@ -50,7 +50,7 @@ end program estatistica_dos_dados
      ! Esta funcao joga os dados até ver se saiu ou nao com vida
 
 integer function dices()
-      life_score = 0
+      life_score = 0 
       death_score = 0
 	    do while (life_score .lt. 2 .OR. death_score .lt. 2)
 	        ! Jogando o dado
