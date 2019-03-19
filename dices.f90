@@ -50,6 +50,7 @@ end program estatistica_dos_dados
      ! Esta funcao joga os dados até ver se saiu ou nao com vida
 
 integer function dices()
+      dices = 0
       life_score = 0
       death_score = 0
 	    do while (life_score  < 3 .OR. death_score < 3)
@@ -61,7 +62,7 @@ integer function dices()
 	      ! Fazendo a contagem da resposta do dado
 		  if (random > 10) then   ! .GE. Maior ou igual
 	          life_score = life_score + 1
-		  else if (random == 20) then
+		  else if (random .eq. 20) then
 	          life_score = life_score + 3
 		  else if(random .EQ. 1)  then
 	          death_score = death_score + 1
@@ -70,15 +71,16 @@ integer function dices()
 		  endif
 
 	     ! Vendo se ja morreu ou voltou a vida
-	     if(death_score < 2) then
+       if(life_score > 2) then
+          dices = 1
+          return
+       endif
+
+	     if(death_score > 2) then
 	        dices = -1
 	        return
         endif
 
-	     if(life_score < 2) then
-	        dices = 1
-	        return
-	     endif
 
 	  	 enddo
 
