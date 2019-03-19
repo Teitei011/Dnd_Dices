@@ -12,7 +12,7 @@ program estatistica_dos_dados
     ! Declaracao de variaveis
 
     integer :: i, j ! O que vai percorrer as listas
-    integer :: number_of_times = 100000
+    integer :: number_of_times = 100000, dices
 
     integer :: death_score = 0, life_score = 0 ! O contador de vidas
     real(8) :: percent_life = 0, percent_death = 0
@@ -28,7 +28,8 @@ program estatistica_dos_dados
 
     ! Percorrendo varias vezes
     do i = 0, number_of_times, 1
-      data = dices()
+      data = dices()   ! TODO: Problem while calling function
+      print *, data
 
       if ( data .eq. 1 ) then         ! Caso ele nao morreu
         life_score = life_score + 1
@@ -37,9 +38,10 @@ program estatistica_dos_dados
       end if
     enddo
 
-    ! Fazendo a porcentagem
 
-    print *, ((life_score / number_of_times)*100) 
+    ! Fazendo a porcentagem
+!    print *, death_score
+
 end program estatistica_dos_dados
 
      ! O programa tem que ter um while, pq ele só pode parar quando atingir o life_score/death_score
@@ -48,15 +50,18 @@ end program estatistica_dos_dados
      ! Esta funcao joga os dados até ver se saiu ou nao com vida
 
 integer function dices()
-	    do while (life_score .EQ. 3 .OR. death_score .EQ. 3)
+      life_score = 0
+      death_score = 0
+	    do while (life_score .lt. 2 .OR. death_score .lt. 2)
 	        ! Jogando o dado
 	      random = rkiss05()
 	      random =  1 + floor((20)*random)         ! Desta forma consigo numeros aleatorios de 1 a 20
 
+
 	      ! Fazendo a contagem da resposta do dado
-		  if (random .GE. 10) then   ! .GE. Maior ou igual
+		  if (random > 10) then   ! .GE. Maior ou igual
 	          life_score = life_score + 1
-		  else if (random .EQ. 20) then
+		  else if (random == 20) then
 	          life_score = life_score + 3
 		  else if(random .EQ. 1)  then
 	          death_score = death_score + 1
@@ -65,11 +70,12 @@ integer function dices()
 		  endif
 
 	     ! Vendo se ja morreu ou voltou a vida
-
 	     if(death_score < 2) then
 	        dices = -1
 	        return
-	     else if(life_score < 2) then
+        endif
+
+	     if(life_score < 2) then
 	        dices = 1
 	        return
 	     endif
