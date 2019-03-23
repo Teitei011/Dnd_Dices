@@ -1,70 +1,79 @@
 program estatistica_dos_dados
     implicit none
 
-    ! 1) Há duas funcoes em funcionamento,
-    ! 2) Uma funcao que vai jogar  os dados até ver se morre/vive.
-    ! 3) Outra que vai ficar chamando a primeira funcao para conseguir a estatistica de vidas/mortes
-
-    !---------------------------------------------------------------------------------------------!
-
-
-
-    ! Declaracao de variaveis
-
-    integer :: i, j ! O que vai percorrer as listas
+    integer :: i, j
     integer :: number_of_times, dices_result
+    integer :: number_of_deviations = 5
 
-    integer :: death_score = 0, life_score = 0 ! O contador de vidas
+    integer :: life_score = 0
     real(8) :: porcentagem
 
-    real(8) :: data
+    real(8) :: data, random
+    integer :: dice_number
 
-    integer :: dice_number               ! Seed do programa
-    real(8) :: random
+    ! Standart deviation variables declaration
 
+    real(8), dimension(5) :: deviation_array
+    real(8) :: sum = 0, mean, deviation
 
     ! Pedindo para colocar um valor para o number_of_times
     print *, "Put the amount of itinerations to run the code: "
     read(*, *) number_of_times
 
-    ! Percorrendo varias vezes
-    do i = 0, number_of_times, 1
-      data = dices_result()
-      if ( data .eq. 1 ) then         ! Caso ele nao morreu
-        life_score = life_score + 1
-      else                                ! Caso ele esta vivo
-        death_score = death_score + 1
-      endif
+    do i = 1, number_of_deviations + 1, 1
+      life_score = 0
+      do j = 0, number_of_times, 1
+        data = dices_result()        ! Using the function
+        if ( data .eq. 1 ) then         ! Alive
+          life_score = life_score + 1
+        endif
+      enddo
+
+      ! Calculating the results
+      porcentagem = (dfloat(life_score) / dfloat(number_of_times)) * 100
+      ! Fazendo a porcentagem
+      deviation_array(i) = porcentagem
     enddo
 
+    ! Calculating the standart deviation
 
-    porcentagem = (dfloat(life_score) / dfloat(number_of_times)) * 100
-    ! Fazendo a porcentagem
-    print *, "Porcentagem de sair vivo: "
-    print *, porcentagem
+     ! First calculating the mean
+
+     do i = 1, number_of_deviations, 1
+       sum = sum + deviation_array(i)
+     enddo
+     mean = sum / number_of_deviations
+
+     !
+     sum = 0
+     do i = 1, 5, 1
+       sum = sum + (deviation_array(i) - mean)**2
+     enddo
+     deviation = SQRT(sum/number_of_deviations)
+
+
+     print *, "The odds of getting back to the game are: "
+     print *, mean, " +/- ", deviation
 
 end program estatistica_dos_dados
 
-     ! O programa tem que ter um while, pq ele só pode parar quando atingir o life_score/death_score
-     ! igual a 3
 
-     ! Esta funcao joga os dados até ver se saiu ou nao com vida
 
 integer function dices_result()
       dices_result = 0
       life_score = 0
       death_score = 0
-	    do while (life_score  < 3 .OR. death_score < 3)
-	        ! Jogando o dado
-        call RANDOM_NUMBER(random)    ! Problema no gerador de numeros aleatorios,
-        dice_number = 1 + FLOOR(20*random)
 
-        if (dice_number == 20) then  ! Ja alcansou o objetivo, não é mais necessário itinerar
+	    do while (life_score  < 3 .OR. death_score < 3)
+        call RANDOM_NUMBER(random)
+        dice_number = 1 + FLOOR(20*random)         ! Dice random generator
+
+        if (dice_number == 20) then  ! Already got to the end
           dices_result = 1
-        else if (dice_number > 10) then
+        else if (dice_number > 9) then
           life_score = life_score + 1
         else if (dice_number == 1) then
-            death_score = death_score + 1
+            death_score = death_score + 2
         else                             ! dice_number < 10
           death_score = death_score + 1
         endif
