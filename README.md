@@ -1,44 +1,40 @@
-# Dnd_Dices
-  Ja fiz um program semelhante em python.
-      Este programa tem como intuito saber a probabiliade estatistica
-     de sair vivo quando vc morre no dnd
+# D&D Dices
 
 
-    								Death Saving Rules
+## Deaths Saving Rules 
 
-    Vc possui dois scores, o life_score e o death_score.
-    É jogado o d20, se cair acima de 10 vc ganha um life_score, se cair abaixo vc ganha um  death_score
-
-    O que completar primeiro ganha, se vc consegue 3 life_score vc volta a vida, se vc consegue
-    3 death_score vc morre para sempre.
-
-    Há duas excessão:
-
-    1) Quando vc consegue 20 vc volta direto a vida
-    2) Quando vc consegue 1 vc ganha 2 death_score
-
-    Tenho a intencao de saber qual a probabiliade de sair vivo desta encrenca
+When your character is dying, you need to make a saving throw at the end of your turn each round. The result of your saving throw determines how close you are to death.
 
 
-    							Numeros aleatorios:
 
-    Para conseguir uma distribuicao normal discreta precisa ser usado a relacao abaixo:
+**Lower than 10:** You slip one step closer to death. If you get this result three times before you take a rest, you die.
 
-   j = n + FLOOR((m+1-n)*u)
+**10–19:** You gain one life point. If you get this result three times you are  alive.
 
-    Onde n é o numero que é usado para começar e m o que termina, sendo u o valor entre 0 e 1
-
-   random =  1 + floor((20)*random)          ! Desta forma consigo numeros aleatorios de 1 a 20
+**20 or higher**: Spend a healing surge. When you do so, you are considered to have 0 hit points, and then your healing surge restores hit points as normal. You are no longer dying, and you are conscious but still prone. If you roll 20 or higher but have no healing surges left, your condition doesn’t change.
 
 
-                                      TODO
+# D&D Dices
 
 
-    1) Fazer ele fazer o mesmo percurso algumas vezes afim de descobrir o erro padrao associado
+This program is made to calculate the probabilities that exist when you are throwing for your character life. 
 
 
-                               LOGICA DO PROGRAMA
+## Deaths Saving Rules 
 
-    1) Há duas funcoes em funcionamento(por enquanto só tem uma),
-    2) Uma funcao que vai jogar  os dados até ver se morre/vive.
-    3) Outra que vai ficar chamando a primeira funcao para conseguir a estatistica de vidas/mortes
+When your character is dying, you need to make a saving throw at the end of your turn each round. The result of your saving throw determines how close you are to death.
+
+
+
+**Lower than 10:** You slip one step closer to death. If you get this result three times before you take a rest, you die.
+
+**10–19:** You gain one life point. If you get this result three times you are  alive.
+
+**20 or higher**: Spend a healing surge. When you do so, you are considered to have 0 hit points, and then your healing surge restores hit points as normal. You are no longer dying, and you are conscious but still prone. If you roll 20 or higher but have no healing surges left, your condition doesn’t change.
+
+
+## Authors
+
+- [@Stefan_Taiguara](https://www.github.com/Teitei011)
+
+  
